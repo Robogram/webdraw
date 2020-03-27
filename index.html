@@ -1,0 +1,1344 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>WebDraw | Create with only mouse</title>
+		<link rel="stylesheet" type="text/css" href="index.css"/>
+		<link href="https://fonts.googleapis.com/css?family=Quicksand:700&display=swap" rel="stylesheet"/>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	</head>
+	<body>
+		<div id="header">
+			<div id="header-title">WebDraw</div>
+		</div>
+
+		<div id="main">
+			<div id="sidebar">
+				<div id="option-list" onclick="show_block('list')">Element(s) List</div>
+
+				<div id="sidebar-element-list" style="display: none">
+					<div id="element-list">
+						<div class="element" onclick="add_element('div', null)">Add 'div'</div>
+						<div class="element" onclick="add_element('p', null)">Add 'p'</div>
+						<div class="element" onclick="add_element('hr', null)">Add 'hr'</div>
+						<div class="element" onclick="add_element('a', null)">Add 'a'</div>
+						<div class="element" onclick="add_element('h', null)">Add 'h1,h2,h3,h4,h5,h6'</div>
+						<div id="h-lists" style="display: none">
+							<div class="h-element" onclick="add_element('h1', null)">h1</div>
+							<div class="h-element" onclick="add_element('h2', null)">h2</div>
+							<div class="h-element" onclick="add_element('h3', null)">h3</div>
+							<div class="h-element" onclick="add_element('h4', null)">h4</div>
+							<div class="h-element" onclick="add_element('h5', null)">h5</div>
+							<div class="h-element" onclick="add_element('h6', null)">h6</div>
+						</div>
+						<div class="element" onclick="add_element('img', null)">Add 'img'</div>
+						<div class="element" onclick="add_element('span', null)">Add 'span'</div>
+						<div class="element" onclick="add_element('ul', null)">Add 'ul'</div>
+						<div class="element" onclick="add_element('ol', null)">Add 'ol'</div>
+						<div class="element" onclick="add_element('li', null)">Add 'li'</div>
+					</div>
+					<div id="note-header">Select any element on your webpage to edit its style</div>
+				</div>
+
+				<div id="sidebar-element-edit" style="display: flex">
+                    <div id="element-remove" style="display: none" onclick="remove_element(null)">Remove Element</div>
+                    <div id="element-header" style="display: none"><div>Enter Text: </div><input id="element-header-input" type="text"/></div>
+                    <div id="element-style-header" style="display: none">Style(s)</div>
+					<div id="edit-box"></div>
+					<div class="element-addbox" style="display: none" onclick="copy_element()">Copy Element</div>
+					<div class="element-addbox" style="display: none" onclick="paste_element(null)">Paste Element</div>
+					<div class="element-addbox" style="display: none" onclick="toggle_elements('before')">Add Element Before</div>
+					<div class="element-addbox" style="display: none" onclick="toggle_elements('inside')">Add Element Inside</div>
+					<div class="element-addbox" style="display: none" onclick="toggle_elements('after')">Add Element After</div>
+				</div>
+			</div>
+
+			<div id="drawingpad-empty">
+				<div id="empty-header">Your webpage is empty ? Oh no !<br>To start, select elements on the left to be added to your webpage</div>
+			</div>
+		</div>
+
+		<div id="hidden-box" style="display: none">
+			<div id="style-add-box" style="display: none">
+				<div class="box-close" onclick="toggle_styles(0, '');"><i class="fa fa-times"></i></div>
+				<div id="style-indicator">Style name starts with letter:</div>
+				<div id="style-letters">
+					<div class="style-letter-indicator">
+						<div class="letter-indicator" onclick="list_styles('a')">a</div>
+						<div class="letter-indicator" onclick="list_styles('b')">b</div>
+						<div class="letter-indicator" onclick="list_styles('c')">c</div>
+						<div class="letter-indicator" onclick="list_styles('d')">d</div>
+						<div class="letter-indicator" onclick="list_styles('e')">e</div>
+						<div class="letter-indicator" onclick="list_styles('f')">f</div>
+						<div class="letter-indicator" onclick="list_styles('g')">g</div>
+						<div class="letter-indicator" onclick="list_styles('h')">h</div>
+						<div class="letter-indicator" onclick="list_styles('i')">i</div>
+						<div class="letter-indicator" onclick="list_styles('j')">j</div>
+						<div class="letter-indicator" onclick="list_styles('k')">k</div>
+						<div class="letter-indicator" onclick="list_styles('l')">l</div>
+						<div class="letter-indicator" onclick="list_styles('m')">m</div>
+					</div>
+					<div class="style-letter-indicator">
+						<div class="letter-indicator" onclick="list_styles('n')">n</div>
+						<div class="letter-indicator" onclick="list_styles('o')">o</div>
+						<div class="letter-indicator" onclick="list_styles('p')">p</div>
+						<div class="letter-indicator" onclick="list_styles('q')">q</div>
+						<div class="letter-indicator" onclick="list_styles('r')">r</div>
+						<div class="letter-indicator" onclick="list_styles('s')">s</div>
+						<div class="letter-indicator" onclick="list_styles('t')">t</div>
+						<div class="letter-indicator" onclick="list_styles('u')">u</div>
+						<div class="letter-indicator" onclick="list_styles('v')">v</div>
+						<div class="letter-indicator" onclick="list_styles('w')">w</div>
+						<div class="letter-indicator" onclick="list_styles('x')">x</div>
+						<div class="letter-indicator" onclick="list_styles('y')">y</div>
+						<div class="letter-indicator" onclick="list_styles('z')">z</div>
+					</div>
+				</div>
+
+				<div id="style-add-header">Style(s) List</div>
+
+				<div id="style-list"></div>
+			</div>
+
+			<div id="element-add-box" style="display: none">
+				<div class="box-close" onclick="toggle_elements('');"><i class="fa fa-times"></i></div>
+				<div id="element-add-header">Element(s) List</div>
+
+				<div id="element-add-list"></div>
+			</div>
+
+			<div id="element-options-box" style="display: none">
+				<div class="box-close" onclick="toggle_elements(null);"><i class="fa fa-times"></i></div>
+				<div id="element-options-header">Do you want to</div>
+
+				<div id="element-options-actions">
+					<div class="element-options-action" onclick="display_elements('show')">Add</div>
+					<div class="element-options-action" onclick="paste_element()">Paste</div>
+				</div>
+			</div>
+
+			<div id="default-property-add-box" style="display: none">
+				<div class="box-close" onclick="toggle_default_properties(0, '', '');"><i class="fa fa-times"></i></div>
+				<div id="default-property-add-header">Property(s) List</div>
+
+				<div id="default-property-add-list"></div>
+			</div>
+
+			<div id="color-add-box" style="display: none">
+				<div class="box-close" onclick="toggle_colors(0, '')"><i class="fa fa-times"></i></div>
+				<div id="default-color-add-header">Default Color(s) List</div>
+
+				<div id="default-color-add-list"></div>
+
+				<div id="extra-color-add-header">Extra Color(s) List</div>
+
+				<div id="extra-color-add-list"></div>
+			</div>
+
+			<div id="length-add-box" style="display: none">
+				<div class="box-close" onclick="toggle_lengths(0, '')"><i class="fa fa-times"></i></div>
+				<div id="length-add-header">Click on numeric to enter the length</div>
+
+				<div id="numbers-list">
+					<div class="numbers-row">
+						<div class="number-button" onclick="add_length('0')">0</div>
+						<div class="number-button" onclick="add_length('1')">1</div>
+						<div class="number-button"onclick="add_length('2')">2</div>
+						<div class="number-button" onclick="add_length('3')">3</div>
+						<div class="number-button" onclick="add_length('4')">4</div>
+					</div>
+					<div class="numbers-row">
+						<div class="number-button" onclick="add_length('5')">5</div>
+						<div class="number-button" onclick="add_length('6')">6</div>
+						<div class="number-button" onclick="add_length('7')">7</div>
+						<div class="number-button" onclick="add_length('8')">8</div>
+						<div class="number-button" onclick="add_length('9')">9</div>
+					</div>
+				</div>
+
+				<div id="numbers-input"></div>
+				<div id="length-actions">
+					<div id="empty-button" onclick="empty_length()">Empty</div>
+					<div id="back-button" onclick="back_length()">Back</div>
+				</div>
+
+				<div id="numbers-type">
+					<div class="number-type-button" onclick="add_length('px')">px</div>
+					<div class="number-type-button" onclick="add_length('%')">%</div>
+					<div class="number-type-button" onclick="add_length('vh')">vh</div>
+				</div>
+
+				<div id="numbers-action">
+					<div class="numbers-button" onclick="cancel_length()">Cancel</div>
+					<div class="numbers-button" onclick="ok_length(null)">Ok</div>
+				</div>
+			</div>
+		</div>
+
+		<script type="text/javascript">
+			var element_list = document.getElementById("sidebar-element-list")
+			var element_edit = document.getElementById("sidebar-element-edit")
+			var hidden_box = document.getElementById("hidden-box")
+			var style_add_box = document.getElementById("style-add-box")
+			var element_add_box = document.getElementById("element-add-box")
+			var element_options_box = document.getElementById("element-options-box")
+			var default_style_add_box = document.getElementById("default-property-add-box")
+			var colors_add_box = document.getElementById("color-add-box")
+			var length_add_box = document.getElementById("length-add-box")
+			var drawing_pad = document.getElementById("drawingpad-empty") ? document.getElementById("drawingpad-empty") : document.getElementById("drawingpad-filled")
+			var h_list = document.getElementById("h-lists")
+			var edit_box = document.getElementById("edit-box")
+			var all_styles = [
+				"align-content", "align-items", "align-self", "all", "animation", "animation-delay", "animation-direction", 
+				"animation-duration", "animation-fill-mode", "animation-iteration-count", "animation-name", "animation-play-state", 
+				"animation-timing-function", "backface-visibility", "background", "background-attachment", "background-blend-mode", 
+				"background-clip", "background-color", "background-image", "background-origin", "background-position", "background-repeat", 
+				"background-size", "border", "border-bottom", "border-bottom-color", "border-bottom-color", "border-bottom-left-radius", 
+				"border-bottom-right-radius", "border-bottom-style", "border-bottom-width", "border-collapse", "border-color", "border-image", 
+				"border-image-outset", "border-image-repeat", "border-image-slice", "border-image-source", "border-image-width", "border-left", 
+				"border-left-color", "border-left-style", "border-left-width", "border-radius", "border-right", "border-right-color", 
+				"border-right-style", "border-right-width", "border-spacing", "border-style", "border-toper-top-color", "border-top-color", 
+				"border-top-left-radius", "border-top-right-radius", "border-top-style", "border-top-width", "border-width", "bottom", 
+				"box-decoration-break", "box-shadow", "box-sizing", "caption-side", "caret-colorhat is editable", "@charset", "clear", 
+				"clip", "color", "column-count", "column-fill", "column-gap", "column-rule", "column-rule-color", "column-rule-style", 
+				"column-rule-width", "column-span", "column-width", "columns", "content", "counter-increment", "counter-reset", "cursor", 
+				"direction", "display", "empty-cells", "filter", "flex", "flex-basis", "flex-direction", "flex-flow", "flex-grow", 
+				"flex-shrink", "flex-wrap", "float", "font", "@font-face", "font-family", "font-kerning", "font-size", "font-size-adjust", 
+				"font-stretch", "font-style", "font-variant", "font-weight", "grid", "grid-are", "grid-auto-columns", "grid-auto-flow", 
+				"grid-auto-rows", "grid-column", "grid-column-end", "grid-column-gap", "grid-column-start", "grid-gap", "grid-row", 
+				"grid-row-end", "grid-row-gap", "grid-row-start", "grid-templated-areas properties", "grid-template-areas", "grid-template-columns", 
+				"grid-template-rows", "hanging-punctuation", "height", "hyphens", "@import", "isolation", "justify-content", "@keyframes", 
+				"left", "letter-spacing", "line-height", "list-style", "list-style-image", "list-style-position", "list-style-type", "margin", 
+				"margin-bottom", "margin-left", "margin-right", "margin-top", "max-height", "max-width", "@media", "min-height", "min-width", 
+				"mix-blend-mode", "object-fit", "object-position", "opacity", "order", "outline", "outline-color", "outline-color", "outline-offset", 
+				"outline-style", "outline-width", "overflow", "overflow-x", "overflow-y", "padding", "padding-bottom", "padding-left", "padding-right", 
+				"padding-top", "page-break-after", "page-break-before", "page-break-inside", "perspective", "perspective-origin", "pointer-events", 
+				"position", "quotes", "resize", "right", "scroll-behavior", "tab-size", "table-layout", "text-align", "text-align-last", 
+				"text-decoration", "text-decoration-color", "text-decoration-line", "text-decoration-style", "text-indent", "text-justify", 
+				"text-overflow", "text-shadow", "text-transform", "top", "transform", "transform-origin", "transform-style", "transition", 
+				"transition-delay", "transition-duration", "transition-property", "transition-timing-function", "unicode-bidi", "user-select", 
+				"vertical-align", "visibility", "white-space", "width", "word-break", "word-spacing", "word-wrap", "writing-mode", "z-index"
+			]
+			var all_elements = [
+				'div', 'p', 'hr', 'a', 'h', 
+				'img', 'span', 'ul', 'ol', 'li'
+			]
+			var default_properties = {
+				"align-content": ["stretch", "center", "flex-start", "flex-end", "space-between", "space-around", "initial", "inherit"],
+				"align-items": ["stretch", "center", "flex-start", "flex-end", "baseline", "initial", "inherit"],
+				"align-self": ["auto", "stretch", "center", "flex-start", "flex-end", "baseline", "initial", "inherit"],
+				"all": ["initial", "inherit", "unset"],
+				"animation":[],
+				"animation-delay":["time", "initial", "inherit"],
+				"animation-direction":["normal", "reverse", "alternate", "alternate-reverse", "initial", "inherit"],
+				"animation-duration":["time", "initial", "inherit"],
+				"animation-fill-mode":["none", "forwards", "backwards", "both", "initial", "inherit"],
+				"animation-iteration-count":["number", "infinite", "initial", "inherit"],
+				"animation-name":["keyframename", "none", "initial", "inherit"],
+				"animation-play-state":["paused", "running", "initial", "inherit"],
+				"animation-timing-function":["linear", "ease", "ease-in", "ease-out", "ease-in-out", "step-start", "step-end", "steps(int,start", "end)", "cubic-bezier(n,n,n,n)", "initial", "inherit"],
+				"backface-visibility":["visible", "hidden", "initial", "inherit"],
+				"background":[""],
+				"background-attachment":["scroll", "fixed", "local", "initial", "inherit"],
+				"background-blend-mode":["normal", "multiply", "screen", "overlay", "darken", "lighten", "color-dodge", "saturation", "color", "luminosity"],
+				"background-clip":["border-box", "padding-box", "content-box", "initial", "inherit"],
+				"background-color":["color", "transparent", "initial", "inherit"],
+				"background-image":["url", "none", "initial", "inherit"],
+				"background-origin":["padding-box", "border-box", "content-box", "initial", "inherit"],
+				"background-position":["value"],
+				"background-repeat":["repeat", "repeat-x", "repeat-y", "no-repeat", "initial", "inherit"],
+				"background-size":["auto", "length", "cover", "contain", "initial", "inherit"],
+				"border":["border-width border-style border-color", "initial", "inherit"],
+				"border-bottom":["border-width border-style border-color", "initial", "inherit"],
+				"border-bottom-color":["color", "transparent", "initial", "inherit"],
+				"border-bottom-left-radius":["length", "% [length", "%]", "initial", "inherit"],
+				"border-bottom-right-radius":["length", "% [length", "%]", "initial", "inherit"],
+				"border-bottom-style":["none", "hidden", "dotted", "dashed", "solid", "double", "groove", "ridge", "inset", "outset", "initial", "inherit"],
+				"border-bottom-width":["medium", "thin", "thick", "length", "initial", "inherit"],
+				"border-collapse":["separate", "collapse", "initial", "inherit"],
+				"border-color":["color", "transparent", "initial", "inherit"],
+				"border-image":["source slice width outset repeat", "initial", "inherit"],
+				"border-image-outset":["length", "number", "initial", "inherit"],
+				"border-image-repeat":["stretch", "repeat", "round", "initial", "inherit"],
+				"border-image-slice":["number", "%", "fill", "initial", "inherit"],
+				"border-image-source":["none", "image", "initial", "inherit"],
+				"border-image-width":["number", "%", "auto", "initial", "inherit"],
+				"border-left":["border-width border-style border-color", "initial", "inherit"],
+				"border-left-color":["color", "transparent", "initial", "inherit"],
+				"border-left-style":["none", "hidden", "dotted", "dashed", "solid", "double", "groove", "ridge", "inset", "outset", "initial", "inherit"],
+				"border-left-width":["medium", "thin", "thick", "length", "initial", "inherit"],
+				"border-radius":["1-4 length", "% / 1-4 length", "%", "initial", "inherit"],
+				"border-right":["border-width border-style border-color", "initial", "inherit"],
+				"border-right-color":["color", "transparent", "initial", "inherit"],
+				"border-right-style":["none", "hidden", "dotted", "dashed", "solid", "double", "groove", "ridge", "inset", "outset", "initial", "inherit"],
+				"border-right-width":["medium", "thin", "thick", "length", "initial", "inherit"],
+				"border-spacing":["length", "initial", "inherit"],
+				"border-style":["none", "hidden", "dotted", "dashed", "solid", "double", "groove", "ridge", "inset", "outset", "initial", "inherit"],
+				"border-top":["border-width border-style border-color", "initial", "inherit"],
+				"border-top-color":["color", "transparent", "initial", "inherit"],
+				"border-top-left-radius":["length", "% [length", "%]", "initial", "inherit"],
+				"border-top-right-radius":["length", "% [length", "%]", "initial", "inherit"],
+				"border-top-style":["none", "hidden", "dotted", "dashed", "solid", "double", "groove", "ridge", "inset", "outset", "initial", "inherit"],
+				"border-top-width":["medium", "thin", "thick", "length", "initial", "inherit"],
+				"border-width":["medium", "thin", "thick", "length", "initial", "inherit"],
+				"bottom":["auto", "length", "initial", "inherit"],
+				"box-decoration-break":["slice", "clone", "initial", "inherit", "unset"],
+				"box-shadow":["none", "h-offset v-offset blur spread color ", "inset", "initial", "inherit"],
+				"box-sizing":["content-box", "border-box", "initial", "inherit"],
+				"caption-side":["top", "bottom", "initial", "inherit"],
+				"caret-color":["auto", "color"],
+				"@charset":[""],
+				"clear":["none", "left", "right", "both", "initial", "inherit"],
+				"clip":["auto", "shape", "initial", "inherit"],
+				"clip-path":["clip-source", "basic-shape", "margin-box", "border-box", "padding-box", "content-box", "fill-box", "stroke-box", "view-box", "none"],
+				"color":["color", "initial", "inherit"],
+				"column-count":["number", "auto", "initial", "inherit"],
+				"column-fill":["balance", "auto", "initial", "inherit"],
+				"column-gap":["length", "normal", "initial", "inherit"],
+				"column-rule":["column-rule-width column-rule-style column-rule-color", "initial", "inherit"],
+				"column-rule-color":["color", "initial", "inherit"],
+				"column-rule-style":["none", "hidden", "dotted", "dashed", "solid", "double", "groove", "ridge", "inset", "outset", "initial", "inherit"],
+				"column-rule-width":["medium", "thin", "thick", "length", "initial", "inherit"],
+				"column-span":["none", "all", "initial", "inherit"],
+				"column-width":["auto", "length", "initial", "inherit"],
+				"columns":["auto", "column-width column-count", "initial", "inherit"],
+				"content":["normal", "none", "counter", "attr", "string", "open-quote", "close-quote", "no-open-quote", "no-close-quote", "url", "initial", "inherit"],
+				"counter-increment":["none", "id", "initial", "inherit"],
+				"counter-reset":["none", "name number", "initial", "inherit"],
+				"cursor":[""], // unlisted values
+				"direction":["ltr", "rtl", "initial", "inherit"],
+				"display":["block", "flex", "none"], // unlisted values
+				"empty-cells":["show", "hide", "initial", "inherit"],
+				"filter":["none", "blur()", "brightness()", "contrast()", "drop-shadow()", "grayscale()", "hue-rotate()", "invert()", "opacity()", "saturate()", "sepia()", "url()"],
+				"flex":["flex-grow flex-shrink flex-basis", "auto", "initial", "inherit"],
+				"flex-basis":["number", "auto", "initial", "inherit"],
+				"flex-direction":["row", "row-reverse", "column", "column-reverse", "initial", "inherit"],
+				"flex-flow":["flex-direction flex-wrap", "initial", "inherit"],
+				"flex-grow":["number", "initial", "inherit"],
+				"flex-shrink":["number", "initial", "inherit"],
+				"flex-wrap":["nowrap", "wrap", "wrap-reverse", "initial", "inherit"],
+				"float":["none", "left", "right", "initial", "inherit"],
+				"font":["font-style font-variant font-weight font-size/line-height font-family", "caption", "icon", "menu", "message-box", "small-caption", "status-bar", "initial", "inherit"],
+				"@font-face":[""],
+				"font-family":["family-name", "generic-family", "initial", "inherit"],
+				"font-kerning":["auto", "normal", "none"],
+				"font-size":["medium", "xx-small", "x-small", "small", "large", "x-large", "xx-large", "smaller", "larger", "length", "initial", "inherit"],
+				"font-size-adjust":["number", "none", "initial", "inherit"],
+				"font-stretch":["ultra-condensed", "extra-condensed", "condensed", "semi-condensed", "normal", "semi-expanded", "expanded", "extra-expanded", "ultra-expanded", "initial", "inherit"],
+				"font-style":["normal", "italic", "oblique", "initial", "inherit"],
+				"font-variant":["normal", "small-caps", "initial", "inherit"],
+				"font-weight":["normal", "bold", "bolder", "lighter", "number", "initial", "inherit"],
+				"grid":["none", "grid-template-rows / grid-template-columns", "grid-template-areas", "grid-template-rows / [grid-auto-flow] grid-auto-columns", "[grid-auto-flow] grid-auto-rows / grid-template-columns", "initial", "inherit"],
+				"grid-are":["grid-row-start / grid-column-start / grid-row-end / grid-column-end ", " itemname"],
+				"grid-auto-columns":["auto", "max-content", "min-content", "length"],
+				"grid-auto-flow":["row", "column", "dense", "row dense", "column dense"],
+				"grid-auto-rows":["auto", "max-content", "min-content", "length"],
+				"grid-column":["grid-column-start / grid-column-end"],
+				"grid-column-end":["auto", "span n", "column-line"],
+				"grid-column-gap":["length"],
+				"grid-column-start":["auto", "span n", "column-line"],
+				"grid-gap":["grid-row-gap grid-column-gap"],
+				"grid-row":["grid-row-start / grid-row-end"],
+				"grid-row-end":["auto", "row-line", "span n"],
+				"grid-row-gap":["length"],
+				"grid-row-start":["auto", "row-line"],
+				"grid-template":["none", "grid-template-rows / grid-template-columns", "grid-template-areas", "initial", "inherit"],
+				"grid-templated-areas":["none", "itemnames"],
+				"grid-template-areas":["none", "auto", "max-content", "min-content", "length", "initial", "inherit"],
+				"grid-template-columns":["none", "auto", "max-content", "min-content", "length", "initial", "inherit"],
+				"grid-template-rows":["none", "auto", "max-content", "min-content", "length", "initial", "inherit"],
+				"hanging-punctuation":["none", "first", "last", "allow-end", "force-end", "initial", "inherit"],
+				"height":["auto", "length", "initial", "inherit"],
+				"hyphens":["none", "manual", "auto", "initial", "inherit"],
+				"@import":["url", "string list-of-mediaqueries"],
+				"isolation":["auto", "isolate", "initial", "inherit"],
+				"justify-content":["flex-start", "flex-end", "center", "space-between", "space-around", "initial", "inherit"],
+				"@keyframes":[""],
+				"left":["auto", "length", "initial", "inherit"],
+				"letter-spacing":["normal", "length", "initial", "inherit"],
+				"line-height":["normal", "number", "length", "initial", "inherit"],
+				"list-style":["list-style-type list-style-position list-style-image", "initial", "inherit"],
+				"list-style-image":["none", "url", "initial", "inherit"],
+				"list-style-position":["inside", "outside", "initial", "inherit"],
+				"list-style-type":["value"],
+				"margin":["length", "auto", "initial", "inherit"],
+				"margin-bottom":["length", "auto", "initial", "inherit"],
+				"margin-left":["length", "auto", "initial", "inherit"],
+				"margin-right":["length", "auto", "initial", "inherit"],
+				"margin-top":["length", "auto", "initial", "inherit"],
+				"max-height":["none", "length", "initial", "inherit"],
+				"max-width":["none", "length", "initial", "inherit"],
+				"@media":[""],
+				"min-height":["length", "initial", "inherit"],
+				"min-width":["length", "initial", "inherit"],
+				"mix-blend-mode":["normal", "multiply", "screen", "overlay", "darken", "lighten", "color-dodge", "color-burn", "difference", "exclusion", "hue", "saturation", "color", "luminosity"],
+				"object-fit":["fill", "contain", "cover", "scale-down", "none", "initial", "inherit"],
+				"object-position":["position", "initial", "inherit"],
+				"opacity":["number", "initial", "inherit"],
+				"order":["number", "initial", "inherit"],
+				"outline":["outline-width outline-style outline-color", "initial", "inherit"],
+				"outline-color":["invert", "color", "initial", "inherit"],
+				"outline-offset":["length", "initial", "inherit"],
+				"outline-style":["none", "hidden", "dotted", "dashed", "solid", "double", "groove", "ridge", "inset", "outset", "initial", "inherit"],
+				"outline-width":["medium", "thin", "thick", "length", "initial", "inherit"],
+				"overflow":["visible", "hidden", "scroll", "auto", "initial", "inherit"],
+				"overflow-x":["visible", "hidden", "scroll", "auto", "initial", "inherit"],
+				"overflow-y":["visible", "hidden", "scroll", "auto", "initial", "inherit"],
+				"padding":["length", "initial", "inherit"],
+				"padding-bottom":["length", "initial", "inherit"],
+				"padding-left":["length", "initial", "inherit"],
+				"padding-right":["length", "initial", "inherit"],
+				"padding-top":["length", "initial", "inherit"],
+				"page-break-after":["auto", "always", "avoid", "left", "right", "initial", "inherit"],
+				"page-break-before":["auto", "always", "avoid", "left", "right", "initial", "inherit"],
+				"page-break-inside":["auto", "avoid", "initial", "inherit"],
+				"perspective":["length", "none"],
+				"perspective-origin":["x-axis y-axis", "initial", "inherit"],
+				"pointer-events":["auto", "none"],
+				"position":["static", "absolute", "fixed", "relative", "sticky", "initial", "inherit"],
+				"quotes":["none", "string", "initial", "inherit"],
+				"resize":["none", "both", "horizontal", "vertical", "initial", "inherit"],
+				"right":["auto", "length", "initial", "inherit"],
+				"scroll-behavior":["auto", "smooth", "initial", "inherit"],
+				"tab-size":["number", "length", "initial", "inherit"],
+				"table-layout":["auto", "fixed", "initial", "inherit"],
+				"text-align":["left", "right", "center", "justify", "initial", "inherit"],
+				"text-align-last":["auto", "left", "right", "center", "justify", "start", "end", "initial", "inherit"],
+				"text-decoration":["text-decoration-line text-decoration-color text-decoration-style", "initial", "inherit"],
+				"text-decoration-color":["color", "initial", "inherit"],
+				"text-decoration-line":["none", "underline", "overline", "line-through", "initial", "inherit"],
+				"text-decoration-style":["solid", "double", "dotted", "dashed", "wavy", "initial", "inherit"],
+				"text-indent":["length", "initial", "inherit"],
+				"text-justify":["auto", "inter-word", "inter-character", "none", "initial", "inherit"],
+				"text-overflow":["clip", "ellipsis", "string", "initial", "inherit"],
+				"text-shadow":["h-shadow v-shadow blur-radius color", "none", "initial", "inherit"],
+				"text-transform":["none", "capitalize", "uppercase", "lowercase", "initial", "inherit"],
+				"top":["auto", "length", "initial", "inherit"],
+				"transform":["none", "transform-functions", "initial", "inherit"],
+				"transform-origin":["x-axis y-axis z-axis", "initial", "inherit"],
+				"transform-style":["flat", "preserve-3d", "initial", "inherit"],
+				"transition":["property duration timing-function delay", "initial", "inherit"],
+				"transition-delay":["time", "initial", "inherit"],
+				"transition-duration":["time", "initial", "inherit"],
+				"transition-property":["none", "all", "property", "initial", "inherit"],
+				"transition-timing-function":["linear", "ease", "ease-in", "ease-out", "ease-in-out", "step-start", "step-end", "steps(int,start", "end)", "cubic-bezier(n,n,n,n)", "initial", "inherit"],
+				"unicode-bidi":["normal", "embed", "bidi-override", "initial", "inherit"],
+				"user-select":["auto", "none", "text", "all"],
+				"vertical-align":["baseline", "length", "sub", "super", "top", "text-top", "middle", "bottom", "text-bottom", "initial", "inherit"],
+				"visibility":["visible", "hidden", "collapse", "initial", "inherit"],
+				"white-space":["normal", "nowrap", "pre", "pre-line", "pre-wrap", "initial", "inherit"],
+				"width":["auto", "value", "initial", "inherit"],
+				"word-break":["normal", "break-all", "keep-all", "break-word", "initial", "inherit"],
+				"word-spacing":["normal", "length", "initial", "inherit"],
+				"word-wrap":["normal", "break-word", "initial", "inherit"],
+				"writing-mode":["horizontal-tb", "vertical-rl", "vertical-lr"],
+				"z-index":["auto", "number", "initial", "inherit"]
+			}
+			var default_colors = [
+				{"name":"AliceBlue","value":"F0F8FF"},{"name":"AntiqueWhite","value":"FAEBD7"},{"name":"Aqua","value":"00FFFF"},
+				{"name":"Aquamarine","value":"7FFFD4"},{"name":"Azure","value":"F0FFFF"},{"name":"Beige","value":"F5F5DC"},
+				{"name":"Bisque","value":"FFE4C4"},{"name":"Black","value":"000000"},{"name":"BlanchedAlmond","value":"FFEBCD"},
+				{"name":"Blue","value":"0000FF"},{"name":"BlueViolet","value":"8A2BE2"},{"name":"Brown","value":"A52A2A"},
+				{"name":"BurlyWood","value":"DEB887"},{"name":"CadetBlue","value":"5F9EA0"},{"name":"Chartreuse","value":"7FFF00"},
+				{"name":"Chocolate","value":"D2691E"},{"name":"Coral","value":"FF7F50"},{"name":"CornflowerBlue","value":"6495ED"},
+				{"name":"Cornsilk","value":"FFF8DC"},{"name":"Crimson","value":"DC143C"},{"name":"Cyan","value":"00FFFF"},
+				{"name":"DarkBlue","value":"00008B"},{"name":"DarkCyan","value":"008B8B"},{"name":"DarkGoldenRod","value":"B8860B"},
+				{"name":"DarkGray","value":"A9A9A9"},{"name":"DarkGrey","value":"A9A9A9"},{"name":"DarkGreen","value":"006400"},
+				{"name":"DarkKhaki","value":"BDB76B"},{"name":"DarkMagenta","value":"8B008B"},
+				{"name":"DarkOliveGreen","value":"556B2F"},{"name":"DarkOrange","value":"FF8C00"},
+				{"name":"DarkOrchid","value":"9932CC"},{"name":"DarkRed","value":"8B0000"},{"name":"DarkSalmon","value":"E9967A"},
+				{"name":"DarkSeaGreen","value":"8FBC8F"},{"name":"DarkSlateBlue","value":"483D8B"},
+				{"name":"DarkSlateGray","value":"2F4F4F"},{"name":"DarkSlateGrey","value":"2F4F4F"},
+				{"name":"DarkTurquoise","value":"00CED1"},{"name":"DarkViolet","value":"9400D3"},{"name":"DeepPink","value":"FF1493"},
+				{"name":"DeepSkyBlue","value":"00BFFF"},{"name":"DimGray","value":"696969"},{"name":"DimGrey","value":"696969"},
+				{"name":"DodgerBlue","value":"1E90FF"},{"name":"FireBrick","value":"B22222"},{"name":"FloralWhite","value":"FFFAF0"},
+				{"name":"ForestGreen","value":"228B22"},{"name":"Fuchsia","value":"FF00FF"},{"name":"Gainsboro","value":"DCDCDC"},
+				{"name":"GhostWhite","value":"F8F8FF"},{"name":"Gold","value":"FFD700"},{"name":"GoldenRod","value":"DAA520"},
+				{"name":"Gray","value":"808080"},{"name":"Grey","value":"808080"},{"name":"Green","value":"008000"},
+				{"name":"GreenYellow","value":"ADFF2F"},{"name":"HoneyDew","value":"F0FFF0"},{"name":"HotPink","value":"FF69B4"},
+				{"name":"IndianRed ","value":"CD5C5C"},{"name":"Indigo  ","value":"4B0082"},{"name":"Ivory","value":"FFFFF0"},
+				{"name":"Khaki","value":"F0E68C"},{"name":"Lavender","value":"E6E6FA"},{"name":"LavenderBlush","value":"FFF0F5"},
+				{"name":"LawnGreen","value":"7CFC00"},{"name":"LemonChiffon","value":"FFFACD"},{"name":"LightBlue","value":"ADD8E6"},
+				{"name":"LightCoral","value":"F08080"},{"name":"LightCyan","value":"E0FFFF"},{"name":"LightGoldenRodYellow","value":"FAFAD2"},{"name":"LightGray","value":"D3D3D3"},{"name":"LightGrey","value":"D3D3D3"},
+				{"name":"LightGreen","value":"90EE90"},{"name":"LightPink","value":"FFB6C1"},{"name":"LightSalmon","value":"FFA07A"},
+				{"name":"LightSeaGreen","value":"20B2AA"},{"name":"LightSkyBlue","value":"87CEFA"},
+				{"name":"LightSlateGray","value":"778899"},{"name":"LightSlateGrey","value":"778899"},
+				{"name":"LightSteelBlue","value":"B0C4DE"},{"name":"LightYellow","value":"FFFFE0"},
+				{"name":"Lime","value":"00FF00"},{"name":"LimeGreen","value":"32CD32"},{"name":"Linen","value":"FAF0E6"},
+				{"name":"Magenta","value":"FF00FF"},{"name":"Maroon","value":"800000"},{"name":"MediumAquaMarine","value":"66CDAA"},
+				{"name":"MediumBlue","value":"0000CD"},{"name":"MediumOrchid","value":"BA55D3"},{"name":"MediumPurple","value":"9370DB"},{"name":"MediumSeaGreen","value":"3CB371"},{"name":"MediumSlateBlue","value":"7B68EE"},
+				{"name":"MediumSpringGreen","value":"00FA9A"},{"name":"MediumTurquoise","value":"48D1CC"},
+				{"name":"MediumVioletRed","value":"C71585"},{"name":"MidnightBlue","value":"191970"},
+				{"name":"MintCream","value":"F5FFFA"},{"name":"MistyRose","value":"FFE4E1"},{"name":"Moccasin","value":"FFE4B5"},
+				{"name":"NavajoWhite","value":"FFDEAD"},{"name":"Navy","value":"000080"},{"name":"OldLace","value":"FDF5E6"},
+				{"name":"Olive","value":"808000"},{"name":"OliveDrab","value":"6B8E23"},{"name":"Orange","value":"FFA500"},
+				{"name":"OrangeRed","value":"FF4500"},{"name":"Orchid","value":"DA70D6"},{"name":"PaleGoldenRod","value":"EEE8AA"},
+				{"name":"PaleGreen","value":"98FB98"},{"name":"PaleTurquoise","value":"AFEEEE"},
+				{"name":"PaleVioletRed","value":"DB7093"},{"name":"PapayaWhip","value":"FFEFD5"},{"name":"PeachPuff","value":"FFDAB9"},
+				{"name":"Peru","value":"CD853F"},{"name":"Pink","value":"FFC0CB"},{"name":"Plum","value":"DDA0DD"},
+				{"name":"PowderBlue","value":"B0E0E6"},{"name":"Purple","value":"800080"},{"name":"RebeccaPurple","value":"663399"},
+				{"name":"Red","value":"FF0000"},{"name":"RosyBrown","value":"BC8F8F"},{"name":"RoyalBlue","value":"4169E1"},
+				{"name":"SaddleBrown","value":"8B4513"},{"name":"Salmon","value":"FA8072"},{"name":"SandyBrown","value":"F4A460"},
+				{"name":"SeaGreen","value":"2E8B57"},{"name":"SeaShell","value":"FFF5EE"},{"name":"Sienna","value":"A0522D"},
+				{"name":"Silver","value":"C0C0C0"},{"name":"SkyBlue","value":"87CEEB"},{"name":"SlateBlue","value":"6A5ACD"},
+				{"name":"SlateGray","value":"708090"},{"name":"SlateGrey","value":"708090"},{"name":"Snow","value":"FFFAFA"},
+				{"name":"SpringGreen","value":"00FF7F"},{"name":"SteelBlue","value":"4682B4"},{"name":"Tan","value":"D2B48C"},
+				{"name":"Teal","value":"008080"},{"name":"Thistle","value":"D8BFD8"},{"name":"Tomato","value":"FF6347"},
+				{"name":"Turquoise","value":"40E0D0"},{"name":"Violet","value":"EE82EE"},{"name":"Wheat","value":"F5DEB3"},
+				{"name":"White","value":"FFFFFF"},{"name":"WhiteSmoke","value":"F5F5F5"},{"name":"Yellow","value":"FFFF00"},
+				{"name":"YellowGreen","value":"9ACD32"}
+			]
+			var extra_colors = [
+				'003366', '336699', '3366cc', '003399', '000099', '0000cc', '000066', 
+				'006666', '006699', '0099cc', '0066cc', '0033cc', '0000ff', '3333ff', '333399', 
+				'669999', '009999', '33cccc', '00ccff', '0099ff', '0066ff', '3366ff', '3333cc', '666699', 
+				'339966', '00cc99', '00ffcc', '00ffff', '33ccff', '3399ff', '6699ff', '6666ff', '6600ff', '6600cc', 
+				'339933', '00cc66', '00ff99', '66ffcc', '66ffff', '66ccff', '99ccff', '9999ff', '9966ff', '9933ff', '9900ff', 
+				'006600', '00cc00', '00ff00', '66ff99', '99ffcc', 'ccffff', 'ccccff', 'cc99ff', 'cc66ff', 'cc33ff', 'cc00ff', '9900cc', 
+				'003300', '009933', '33cc33', '66ff66', '99ff99', 'ccffcc', 'ffffff', 'ffccff', 'ff99ff', 'ff66ff', 'ff00ff', 'cc00cc', '660066', 
+				'336600', '009900', '66ff33', '99ff66', 'ccff99', 'ffffcc', 'ffcccc', 'ff99cc', 'ff66cc', 'ff33cc', 'cc0099', '993399', 
+				'333300', '669900', '99ff33', 'ccff66', 'ffff99', 'ffcc99', 'ff9999', 'ff6699', 'ff3399', 'cc3399', '990099', 
+				'666633', '99cc00', 'ccff33', 'ffff66', 'ffcc66', 'ff9966', 'ff6666', 'ff0066', 'cc6699', '993366', 
+				'999966', 'cccc00', 'ffff00', 'ffcc00', 'ff9933', 'ff6600', 'ff5050', 'cc0066', '660033', 
+				'996633', 'cc9900', 'ff9900', 'cc6600', 'ff3300', 'ff0000', 'cc0000', '990033', 
+				'663300', '996600', 'cc3300', '993300', '990000', '800000', '993333'
+			]
+			var text_file = []
+            var editing_element = {
+            	backid: '', hold_back_element: '', elementid: '', tag: '', index: null, styles: null, 
+            	style_index: -1, indexes: [], hold_element: '', innerHTML: '', click: false
+            }, coping_element = { tag: '', styles: null }
+            var value = ""
+
+			drawing_pad.innerHTML = write_to_page(text_file)
+			drawing_pad.id = "drawingpad-filled" 
+			show_block('list')
+
+			document.getElementById("note-header").style.display = text_file.length > 0 ? "block" : "none"
+
+			function show_block(type) {
+				switch (type) {
+					case "list":
+						editing_element = {
+			            	backid: '', hold_back_element: '', elementid: '', index: null, styles: null, 
+			            	style_index: -1, indexes: [], hold_element: '', innerHTML: '', click: false
+			            }
+
+						element_list.style.display = "flex"
+						element_edit.style.display = "none"
+
+						break
+					case "edit":
+						element_list.style.display = "none"
+						element_edit.style.display = "flex"
+
+						break
+				}
+			}
+
+			function display_edits(id, styles) {
+				document.getElementById("element-remove").style.display = "block"
+				document.getElementById("element-header").style.display = "flex"
+				document.getElementById("element-header-input").setAttribute("onkeyup", "save_header(this.value)")
+				document.getElementById("element-header-input").value = !Array.isArray(editing_element.innerHTML) ? editing_element.innerHTML : ''
+				document.getElementById("element-style-header").style.display = "block"
+				document.getElementsByClassName("element-addbox")[0].style.display = "block"
+
+				if (copy_element.elementid) {
+					document.getElementsByClassName("element-addbox")[1].style.display = "block"
+				}
+
+				document.getElementsByClassName("element-addbox")[2].style.display = "block"
+				document.getElementsByClassName("element-addbox")[3].style.display = "block"
+
+				if (styles.length > 0) {
+					edit_box.innerHTML = "<div class='info-edit-add' onclick=\"add_style('" + id + "', 0, '', null)\">add a style</div>"
+
+					styles.forEach(function ({ name, value }, index) {
+						name = name != "unselected" ? rename_style(name) : "unselected"
+
+						if (index == 0) {
+							if (name == "unselected") {
+								edit_box.innerHTML += "<div class='info-edit-header-selectable' onclick=\"toggle_styles(" + index + ", 'show')\">Click to select a property:</div>"
+							} else {
+								edit_box.innerHTML += "<div class='info-edit-header'>" + name + ":</div>"
+							}
+
+							edit_box.innerHTML += "<div class='info-edit-row'>"
+							edit_box.innerHTML += "</div>"
+						} else {
+							edit_box.innerHTML += "<div class='info-edit-add' onclick=\"add_style('" + id + "', " + index + ", '', null)\">add a style</div>"
+
+							if (name == "unselected") {
+								edit_box.innerHTML += "<div class='info-edit-header-selectable' onclick=\"toggle_styles(" + index + ", 'show')\">Click to select a property:</div>"
+							} else {
+								edit_box.innerHTML += "<div class='info-edit-header'>" + name + ":</div>"
+							}
+
+							edit_box.innerHTML += "<div class='info-edit-row'>"
+							edit_box.innerHTML += "</div>"
+						}
+
+						if (name != "unselected") {
+							document.getElementsByClassName("info-edit-row")[index].innerHTML += "<div class='info-edit-input' onclick=\"toggle_default_properties(" + index + ", 'show', '" + name + "')\" value='" + value + "'>" + value + "</div>"
+						} else {
+							document.getElementsByClassName("info-edit-row")[index].innerHTML += "<div class='info-edit-input-disabled'></div>"
+						}
+
+						document.getElementsByClassName("info-edit-row")[index].innerHTML += "<div class='info-edit-delete' onclick=\"remove_style('" + id + "', " + index + ", null)\"><i class='fa fa-times'></i></div>"
+					})
+
+					edit_box.innerHTML += "<div class='info-edit-add' onclick=\"add_style('" + id + "', " + (styles.length - 1) + ", 'last', null)\">add a style</div>"
+				} else {
+					edit_box.innerHTML = "<div class='info-edit-add' onclick=\"add_style('" + id + "', 0, 'last', null)\">add a style</div>"
+				}
+			}
+
+			function get_new_element_id() {
+				var elementid = "", k
+				var elementidlength = Math.floor(Math.random() * (10 - 5)) + 5
+
+				for (k = 1; k <= elementidlength; k++) {
+					rannum = Math.floor(Math.random() * (9 - 0)) + 0
+
+					if (rannum % 2 == 0) {
+						elementid += String.fromCharCode(Math.floor(Math.random() * (90 - 65)) + 65)
+					} else {
+						elementid += Math.floor(Math.random() * (9 - 0)) + 0
+					}
+				}
+
+				return elementid
+			}
+
+			function rename_style(style_name) {
+				var k, new_name = ""
+
+				for (k = 0; k <= style_name.length - 1; k++) {
+					if (style_name.charCodeAt(k) >= 65 && style_name.charCodeAt(k) <= 90) {
+						new_name += "-" + style_name[k].toLowerCase()
+					} else {
+						new_name += style_name[k]
+					}
+				}
+
+				return new_name
+			}
+
+            function remove_element(innerhtml) {
+                var elements = innerhtml ? innerhtml : text_file
+                var { elementid, index, hold_element, backid } = editing_element
+                var file = JSON.stringify(text_file)
+
+                elements.forEach(function (element, index) {
+                	var { id, styles, innerHTML } = element
+
+                    if (id == elementid) {
+                        elements.splice(index, 1)
+
+                        save_to_file(elements, backid, null)
+
+                        show_block('list')
+                        edit_box.innerHTML = ""
+
+                        return
+                    }
+
+                    if (Array.isArray(innerHTML)) {
+                        remove_element(innerHTML)
+                    }
+                })
+            }
+
+			function add_element(element, action) {
+				var ran_color_array = ['blue', 'black', 'silver', 'maroon', 'red', 'purple', 'fuchsia', 'green', 'lime', 'olive', 'yellow', 'navy', 'teal', 'aqua']
+				var elementid = get_new_element_id(), ran_color = ran_color_array[Math.floor(Math.random() * (13 - 0)) + 0]
+				var { hold_element } = editing_element
+				var new_element = hold_element ? JSON.parse(hold_element) : ''
+				var file = JSON.stringify(text_file)
+				var element_json = {
+					"div":{"id":"","tag":"","styles":[{"name":"background-color","value":ran_color},{"name":"padding","value": "10px"}],"innerHTML": ""},
+					"p":{"id":"","tag":"","styles":[{"name":"background-color","value":ran_color},{"name":"padding","value": "10px"}],"innerHTML":""},
+					"hr":{"id":"","tag":"","styles":[{"name":"border-color","value":ran_color}],"innerHTML":""},
+					"a":{"id":"","tag":"","styles":[{"name":"background-color","value":ran_color},{"name":"text-decoration","value":"underline"}],"innerHTML":"this is a link"},
+					"img":{"id":"","tag":"","styles":[{"name":"background-color","value":ran_color},{"name":"width","value":"100px"}],"innerHTML": ""},
+					"h1":{"id":"","tag":"","styles":[{"name":"color","value":ran_color}],"innerHTML":"this is a header"},
+					"h2":{"id":"","tag":"","styles":[{"name":"color","value":ran_color}],"innerHTML":"this is a header"},
+					"h3":{"id":"","tag":"","styles":[{"name":"color","value":ran_color}],"innerHTML":"this is a header"},
+					"h4":{"id":"","tag":"","styles":[{"name":"color","value":ran_color}],"innerHTML":"this is a header"},
+					"h5":{"id":"","tag":"","styles":[{"name":"color","value":ran_color}],"innerHTML":"this is a header"},
+					"h6":{"id":"","tag":"","styles":[{"name":"color","value":ran_color}],"innerHTML":"this is a header"},
+					"span":{"id":"","tag":"","styles":[{"name":"color","value":ran_color}],"innerHTML":"this is a span"},
+					"ul":{"id":"","tag":"","styles":[{"name":"background-color","value":ran_color},{"name":"padding","value":"10px"}],"innerHTML":""},
+					"ol":{"id":"","tag":"","styles":[{"name":"background-color","value":ran_color},{"name":"padding","value":"10px"}],"innerHTML":""},
+					"li":{"id":"","tag":"","styles":[{"name":"color","value":ran_color}],"innerHTML":"this is a list item"}
+				}
+
+				if (element == "h") {
+					h_list.style.display = h_list.style.display == "none" ? "flex" : "none"
+				} else {
+					element_json[element]["id"] = elementid
+					element_json[element]["tag"] = element
+
+					if (hold_element) {
+						if (action == "inside") {
+							if (Array.isArray(new_element.innerHTML)) {
+								new_element.innerHTML.push(element_json[element])
+							} else {
+								new_element.innerHTML = [element_json[element]]
+							}
+
+							editing_element.elementid = elementid
+							editing_element.styles = element_json[element].styles
+
+							save_to_file(new_element, null, null)
+						} else {
+							add_element_outside(action, null, element_json[element])
+						}
+					} else {
+						text_file.push(element_json[element])
+
+						drawing_pad.innerHTML = write_to_page(text_file)
+					}
+				}
+
+				editing_element.click = false
+
+				edit_element(elementid, null)
+			}
+
+			function add_element_outside(action, innerhtml, new_element) {
+				var elements = innerhtml ? innerhtml : text_file
+				var { backid, elementid } = editing_element
+				var added = false
+
+
+				elements.forEach(function (element, index) {
+					if (!backid) {
+						if (elementid == element.id && !added) {
+							if (action == 'before') {
+								elements.splice(index, 0, new_element)
+							} else {
+								elements.splice(index + 1, 0, new_element)
+							}
+
+							added = true
+
+							save_to_file(elements, null, action)
+
+							return
+						}
+					} else if (backid == element.id) {
+						element.innerHTML.forEach(function (inner_element, index) {
+							if (elementid == inner_element.id && !added) {
+								if (action == 'before') {
+									element.innerHTML.splice(index, 0, new_element)
+								} else {
+									element.innerHTML.splice(index + 1, 0, new_element)
+								}
+
+		                        added = true
+
+								save_to_file(element, null, action)
+
+								return
+							}
+						})
+					}
+
+					if (Array.isArray(element.innerHTML)) {
+						add_element_outside(action, element.innerHTML, new_element)
+					}
+				})
+
+				editing_element.click = false
+
+				edit_element(new_element.id, null)
+			}
+
+			function edit_element(elementid, innerhtml) {
+				var elements = innerhtml ? innerhtml : text_file
+
+				if (innerhtml != 'disable') {
+					elements.forEach(function (element, index) {
+						var { id, tag, styles, innerHTML } = element
+
+						if (id == elementid && !editing_element.click) {
+							editing_element.elementid = id
+							editing_element.tag = tag
+	                        editing_element.index = index
+	                        editing_element.styles = styles
+	                        editing_element.style_index = -1
+	                        editing_element.hold_element = JSON.stringify(element)
+	                        editing_element.innerHTML = innerHTML
+	                        editing_element.click = true
+
+							display_edits(id, styles)
+							show_block('edit')
+
+							return
+						}
+
+						if (Array.isArray(innerHTML)) {
+							editing_element.backid = id
+		                    editing_element.hold_back_element = innerHTML
+
+							edit_element(elementid, innerHTML)
+						}
+					})
+				} else {
+					editing_element.click = false
+				}
+			}
+
+			function save_header(header, innerhtml) {
+				var elements = innerhtml ? innerhtml : text_file
+				var { elementid, hold_element } = editing_element
+				var file = JSON.stringify(text_file)
+
+				elements.forEach(function (element) {
+					var { id } = element
+
+					if (id == elementid) {
+						element.innerHTML = header
+
+						save_to_file(element, null, null)
+
+						return
+					}
+
+					if (Array.isArray(element.innerHTML)) {
+						save_header(header, element.innerHTML)
+					}
+				})
+			}
+
+			function add_style(elementid, index, dir, innerhtml) {
+				var elements = innerhtml ? innerhtml : text_file
+				var valid_add = true
+
+				elements.forEach(function (element) {
+					var { id, styles, innerHTML } = element
+
+					if (id == elementid) {
+						styles.forEach(function ({ name }) {
+							if (name == 'unselected') {
+								valid_add = false
+
+								alert('empty property(s) detected')
+							}
+						})
+
+						if (valid_add) {
+							if (dir != 'last') {
+								styles.splice(index, 0, {"name": "unselected", "value": ""})
+							} else {
+								styles.splice(index + 1, 0, {"name": "unselected", "value": ""})
+							}
+
+							element.styles = styles
+							
+							save_to_file(element, null, null)
+							display_edits(id, styles)
+						}
+
+						return
+					}
+
+					if (Array.isArray(innerHTML)) {
+						add_style(elementid, index, dir, innerHTML)
+					}
+				})
+			}
+
+			function remove_style(elementid, style_index, innerhtml) {
+				var elements = innerhtml ? innerhtml : text_file
+				var { hold_element } = editing_element
+				var ran_color_array = ['blue', 'black', 'silver', 'maroon', 'red', 'purple', 'fuchsia', 'green', 'lime', 'olive', 'yellow', 'navy', 'teal', 'aqua'], ran_color = ran_color_array[Math.floor(Math.random() * (13 - 0)) + 0]
+				var element_json = {
+					"div":{"id":"","tag":"","styles":[{"name":"background-color","value":ran_color},{"name":"padding","value": "10px"}],"innerHTML": ""},
+					"p":{"id":"","tag":"","styles":[{"name":"background-color","value":ran_color},{"name":"padding","value": "10px"}],"innerHTML":""},
+					"hr":{"id":"","tag":"","styles":[{"name":"border-color","value":ran_color}],"innerHTML":""},
+					"a":{"id":"","tag":"","styles":[{"name":"background-color","value":ran_color},{"name":"text-decoration","value":"underline"}],"innerHTML":"this is a link"},
+					"img":{"id":"","tag":"","styles":[{"name":"background-color","value":ran_color},{"name":"width","value":"100px"}],"innerHTML": ""},
+					"h1":{"id":"","tag":"","styles":[{"name":"color","value":ran_color}],"innerHTML":"this is a header"},
+					"h2":{"id":"","tag":"","styles":[{"name":"color","value":ran_color}],"innerHTML":"this is a header"},
+					"h3":{"id":"","tag":"","styles":[{"name":"color","value":ran_color}],"innerHTML":"this is a header"},
+					"h4":{"id":"","tag":"","styles":[{"name":"color","value":ran_color}],"innerHTML":"this is a header"},
+					"h5":{"id":"","tag":"","styles":[{"name":"color","value":ran_color}],"innerHTML":"this is a header"},
+					"h6":{"id":"","tag":"","styles":[{"name":"color","value":ran_color}],"innerHTML":"this is a header"},
+					"span":{"id":"","tag":"","styles":[{"name":"color","value":ran_color}],"innerHTML":"this is a span"},
+					"ul":{"id":"","tag":"","styles":[{"name":"background-color","value":ran_color},{"name":"padding","value":"10px"}],"innerHTML":""},
+					"ol":{"id":"","tag":"","styles":[{"name":"background-color","value":ran_color},{"name":"padding","value":"10px"}],"innerHTML":""},
+					"li":{"id":"","tag":"","styles":[{"name":"color","value":ran_color}],"innerHTML":"this is a list item"}
+				}
+				var file = JSON.stringify(text_file)
+				var valid_add = true
+
+				elements.forEach(function (element, index) {
+					var { id, tag, styles, innerHTML } = element
+
+					if (id == elementid) {
+                        document.getElementById(id).style[styles[style_index].name] = null
+
+						styles.splice(style_index, 1)
+
+						if (styles.length == 0) {
+							styles = styles.concat(element_json[tag]["styles"])
+
+							styles.forEach(function ({ name, value }) {
+								document.getElementById(id).style[name] = value
+							})
+						}
+
+						element.styles = styles
+
+						save_to_file(element, null, null)
+						display_edits(id, styles)
+
+						return
+					}
+
+					if (Array.isArray(innerHTML)) {
+						remove_style(elementid, style_index, innerHTML)
+					}
+				})
+			}
+
+			function save_to_file(element, backid, action) {
+				var { hold_element, hold_back_element } = editing_element
+				var file = JSON.stringify(text_file)
+
+				if (backid) {
+					text_file = JSON.parse(file.replace(hold_back_element, JSON.stringify(element)))
+
+					editing_element.hold_back_element = JSON.stringify(element)
+				} else {
+					text_file = !action ? JSON.parse(file.replace(hold_element, JSON.stringify(element))) : text_file
+
+					editing_element.hold_element = JSON.stringify(element)
+				}
+				
+				drawing_pad.innerHTML = write_to_page(text_file)
+			}
+
+			function write_to_page(innerhtml) {
+				var page = ""
+
+				innerhtml.forEach(function ({ id, tag, styles, innerHTML }) {
+					page += "<" + tag + " onmousedown=\"edit_element('" + id + "', null)\" onmouseup=\"edit_element('', 'disable')\" id=\"" + id + "\""
+
+					if (styles.length > 0) {
+						page += " style=\""
+					}
+
+					styles.forEach(function ({ name, value }, index) {
+						name = rename_style(name)
+
+						if (index < styles.length - 1) {
+							page += name + ": " + value + "; "
+						} else {
+							page += name + ": " + value + ";"
+						}
+					})
+
+					if (styles.length > 0) {
+						page += "\""
+					}
+
+					if (tag != "img") {
+						page += ">"
+
+						if (Array.isArray(innerHTML)) {
+							page += write_to_page(innerHTML)
+						} else {
+							page += innerHTML
+						}
+						
+						page += "</" + tag + ">"
+					} else {
+						page += " src='img_holder.jpg'/>"
+					}
+				})
+
+				return page
+			}
+
+			/* style add */
+			function toggle_styles(index, action) {
+                hidden_box.style.display = action == 'show' ? 'flex' : 'none'
+                style_add_box.style.display = action == 'show' ? 'block' : 'none'
+
+                if (action == 'show') {
+                    editing_element.style_index = index
+
+                    display_styles(all_styles)
+                }
+            }
+
+			function list_styles(letter) {
+				var styles = []
+
+				all_styles.forEach(function (each_letter) {
+					if (each_letter.substr(0, 1) == letter || letter == '') {
+						styles.push(each_letter)
+					}
+				})
+
+				display_styles(styles)
+			}
+
+			function display_styles(styles) {
+				var style_list = document.getElementById("style-list")
+
+                style_list.innerHTML = ""
+
+				styles.forEach(function (style) {
+					style_list.innerHTML += "<div class='style-add' onclick=\"select_style('" + style + "', null)\">" + style + "</div>"
+				})
+			}
+
+            function select_style(style, innerhtml) {
+                var elements = innerhtml ? innerhtml : text_file
+                var { elementid, style_index, hold_element } = editing_element
+
+                elements.forEach(function (element) {
+                	var { id, styles, innerHTML } = element
+
+                    if (id == elementid) {
+                        styles[style_index].name = style
+
+                        display_edits(id, styles)
+                        toggle_styles(style_index, '')
+
+                        hold_element = JSON.parse(hold_element)
+						hold_element.styles = styles
+
+                        editing_element.styles = styles
+                        editing_element.hold_element = JSON.stringify(hold_element)
+
+                        element.styles = styles
+
+                        save_to_file(element, null, null)
+
+                        return
+                    }
+
+                    if (Array.isArray(innerHTML)) {
+                        select_style(style, innerHTML)
+                    }
+                })
+            }
+			/* end style add */
+
+			/* element add */
+			function copy_element() {
+				var { tag, styles } = editing_element
+
+				copy_element.tag = tag
+				copy_element.styles = styles
+
+				document.getElementsByClassName("element-addbox")[1].style.display = "block"
+
+				document.getElementsByClassName("element-addbox")[2].innerHTML = "Add / Paste Element Before"
+				document.getElementsByClassName("element-addbox")[3].innerHTML = "Add / Paste Element Inside"
+				document.getElementsByClassName("element-addbox")[4].innerHTML = "Add / Paste Element After"
+			}
+
+			function paste_element(innerhtml) {
+				var elements = innerhtml ? innerhtml : text_file
+				var { tag, styles } = copy_element
+				var { elementid } = editing_element
+
+				elements.forEach(function (element) {
+					var { id, innerHTML } = element
+
+					if (id == elementid) {
+						editing_element.tag = tag
+						editing_element.styles = styles
+
+						element.tag = tag
+						element.styles = styles
+
+						save_to_file(element, null, null)
+					}
+
+					if (Array.isArray(innerHTML)) {
+						paste_element(innerHTML)
+					}
+				})
+			}
+
+			function toggle_elements(action) {
+				var { tag } = copy_element
+
+            	hidden_box.style.display = action ? 'flex' : 'none'
+
+            	if (!tag) {
+            		element_add_box.style.display = action ? 'block' : 'none'
+
+            		display_elements(action)
+            	} else {
+            		element_options_box.style.display = action ? 'block' : 'none'
+            	}
+            }
+
+			function display_elements(action) {
+				var element_list = document.getElementById("element-add-list")
+				var k
+
+				element_list.innerHTML = ""
+
+				if (action) {
+					element_options_box.style.display = 'none'
+					element_add_box.style.display = 'block'
+				}
+
+				all_elements.forEach(function (element) {
+					element_list.innerHTML += "<div class='element-add' onclick=\"select_element('" + element + "', null, '" + action + "')\">" + element + "</div>"
+
+					if (element == "h") {
+						element_list.innerHTML += "<div id='h-box-lists' style='display: none;'><div class='h-box-element' onclick=\"select_element('h1', null, '" + action + "')\">h1</div><div class='h-box-element' onclick=\"select_element('h2', null, '" + action + "')\">h2</div><div class='h-box-element' onclick=\"select_element('h3', null, '" + action + "')\">h3</div><div class='h-box-element' onclick=\"select_element('h4', null, '" + action + "')\">h4</div><div class='h-box-element' onclick=\"select_element('h5', null, '" + action + "')\">h5</div><div class='h-box-element' onclick=\"select_element('h6', null, '" + action + "')\">h6</div></div>"
+					}
+				})
+			}
+
+			function select_element(element, innerhtml, action) {
+				var { elementid, styles, style_index, hold_element } = editing_element
+				var h_box_list = document.getElementById("h-box-lists")
+
+				if (element == "h") {
+					h_box_list.style.display = h_box_list.style.display == "none" ? "flex" : "none"
+				} else {
+					if (hold_element) {
+	                	toggle_elements(null)
+	                }
+
+	                add_element(element, action)
+				}
+			}
+			/* end element add */
+
+			/* property add */
+			function toggle_default_properties(index, action, style_name) {
+				hidden_box.style.display = action ? 'flex' : 'none'
+				default_style_add_box.style.display = action ? 'block' : 'none'
+
+				if (style_name) {
+					display_default_properties(action, style_name)
+
+					editing_element.style_index = index
+				}
+			}
+
+			function display_default_properties(action, style_name) {
+				var { tag } = editing_element
+				var property_list = document.getElementById("default-property-add-list")
+				var properties = default_properties[style_name]
+
+				property_list.innerHTML = ""
+
+				properties.forEach(function (property) {
+					property_list.innerHTML += "<div class='default-property-add' onclick=\"select_property('" + property + "', null)\">" + property + "</div>"
+				})
+			}
+
+			function select_property(property, innerhtml) {
+				var elements = innerhtml ? innerhtml : text_file
+				var { elementid, styles, style_index, hold_element } = editing_element
+
+				switch (property) {
+					case "color":
+						toggle_default_properties(0, '', '')
+						toggle_colors('show')
+
+						break;
+					case "length":
+					case "value":
+						toggle_default_properties(0, '', '')
+						toggle_lengths('show')
+
+						break;
+					default:
+						elements.forEach(function (element) {
+							var { id, styles, innerHTML } = element
+
+							if (id == elementid) {
+								styles[style_index].value = property;
+
+								display_edits(id, styles)
+
+								hold_element = JSON.parse(hold_element)
+								hold_element.styles = styles
+
+								editing_element.styles = styles
+								editing_element.style_index = -1
+		                        editing_element.hold_element = JSON.stringify(hold_element)
+
+		                        element.styles = styles
+
+		                        save_to_file(element, null, null)
+
+		                        toggle_default_properties(0, '', '')
+
+								return
+							}
+
+							if (Array.isArray(innerHTML)) {
+								select_property(property, innerHTML)
+							}
+						})
+
+						break;
+				}	
+			}
+			/* end property add */
+
+			/* default style add */
+			function toggle_colors(action) {
+				var default_colors_list = document.getElementById("default-color-add-list"), default_colors_innerhtml = ""
+				var extra_colors_list = document.getElementById("extra-color-add-list"), extra_colors_innerhtml = ""
+				var num_colors_row = [7, 8, 9, 10, 11, 12, 13], index = 0, k = 0
+				var row_length = {7: 160, 8: 190, 9: 210, 10: 240, 11: 270, 12: 295, 13: 320}
+
+				hidden_box.style.display = action ? 'flex' : 'none'
+				colors_add_box.style.display = action ? 'block' : 'none'
+
+				if (action) {
+					default_colors.forEach(function ({ name, value }) {
+						default_colors_innerhtml += "<div class='default-color-add' style='background-color: #" + value + ";' onclick=\"select_color('" + value + "', null)\"><div style='background-color: white; border-radius: 5px; margin: 0 auto; width: 150px;'>" + name + "</div></div>"
+					})
+
+					extra_colors.forEach(function (color) {
+						k++
+
+						if (k == 1) {
+							extra_colors_innerhtml += "<div class='extra-color-row' style='width: " + row_length[num_colors_row[index]] + "px'><div class='extra-color-add' style='background-color: #" + color + ";' onclick=\"select_color('" + color + "', null)\"></div>"
+						} else if (k == num_colors_row[index]) {
+							extra_colors_innerhtml += "<div class='extra-color-add' style='background-color: #" + color + ";' onclick=\"select_color('" + color + "', null)\"></div></div>"
+						} else if (k < num_colors_row[index]) {
+							extra_colors_innerhtml += "<div class='extra-color-add' style='background-color: #" + color + ";' onclick=\"select_color('" + color + "', null)\"></div>"
+						}
+
+							
+						if (k == num_colors_row[index]) {
+							if (num_colors_row[index] == 13) {
+								num_colors_row = num_colors_row.reverse()
+
+								index = 1
+							} else {
+								index++
+							}
+
+							k = 0
+						}
+					})
+
+					default_colors_list.innerHTML = default_colors_innerhtml
+					extra_colors_list.innerHTML = extra_colors_innerhtml
+				}
+			}
+
+			function select_color(value, innerhtml) {
+				var elements = innerhtml ? innerhtml : text_file
+				var { elementid, style_index, hold_element } = editing_element
+
+				elements.forEach(function (element) {
+					var { id, styles, innerHTML } = element
+
+					if (id == elementid) {
+						styles[style_index].value = '#' + value
+
+						element.styles = styles
+
+						save_to_file(element, null, null)
+						toggle_colors('')
+						display_edits(id, styles)
+
+						return
+					}
+
+					if (Array.isArray(innerHTML)) {
+						select_color(value, innerHTML)
+					}
+				})
+			}
+			/* end default style add */
+
+			/* length add */
+			function toggle_lengths(action) {
+				hidden_box.style.display = action == 'show' ? 'flex' : 'none'
+                length_add_box.style.display = action == 'show' ? 'block' : 'none'
+
+                if (action == 'show') {
+                	empty_length
+                }
+			}
+
+			function empty_length() {
+				value = ""
+
+				document.getElementById("numbers-input").innerHTML = value
+			}
+
+			function back_length() {
+				var last_two = value.substr(value.length - 2)
+
+				switch (last_two) {
+					case "px":
+					case "vh":
+						value = value.substr(0, value.length - 2)
+
+						break
+					default:
+						value = value.substr(0, value.length - 1)
+
+						break
+				}
+
+				document.getElementById("numbers-input").innerHTML = value
+			}
+
+			function add_length(number) {
+				var last_value = value.substr(value.length - 1)
+
+				if (last_value >= 0 && last_value <= 9) {
+					value += "" + number
+				}
+
+				document.getElementById("numbers-input").innerHTML = value
+			}
+
+			function cancel_length() {
+				toggle_lengths(0, '')
+
+				value = ""
+			}
+
+			function ok_length(innerhtml) {
+				var elements = innerhtml ? innerhtml : text_file
+				var { elementid, style_index } = editing_element
+
+				elements.forEach(function (element) {
+					var { id, styles, innerHTML } = element
+
+					if (id == elementid) {
+						styles[style_index].value = value
+
+						element.styles = styles
+
+						save_to_file(element, null, null)
+						cancel_length()
+						display_edits(id, styles)
+
+						return
+					}
+
+					if (Array.isArray(innerHTML)) {
+						ok_length(innerHTML)
+					}
+				})
+			}
+			/* end length add */
+		</script>
+	</body>
+</html>

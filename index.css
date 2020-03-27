@@ -1,0 +1,515 @@
+* {
+	font-family: 'Quicksand', sans-serif;
+	margin: 0;
+	outline: none;
+	padding: 0;
+}
+
+/* header */
+#header {
+	background-color: #303030;
+	padding: 20px;
+	width: calc(100vw - 40px);
+}
+
+#header-title {
+	color: white;
+	font-size: 20px;
+}
+/* end header */
+
+/* main */
+#main {
+	display: flex;
+	flex-direction: row;
+	height: calc(100vh - 65px);
+	justify-content: space-between;
+	width: 100vw;
+}
+
+/* sidebar */
+#sidebar {
+	background-color: #303030;
+	height: calc(100vh - 65px);
+	width: 20vw;
+}
+
+[id^="option-"] {
+	color: white;
+	padding: 10px 0;
+	text-align: center;
+	text-decoration: underline;
+}
+
+#option-list-selected,
+#option-editing-selected {
+	background-color: rgba(0, 0, 0, 0.3);
+}
+
+#option-list:hover,
+#option-editing:hover {
+	background-color: rgba(0, 0, 0, 0.5);
+	cursor: pointer;
+}
+
+#sidebar-element-list,
+#sidebar-element-edit {
+	display: flex;
+	flex-direction: column;
+	height: calc(100vh - 125px);
+	overflow-y: scroll;
+	justify-content: space-around;
+}
+
+/* element list */
+.element {
+	background-color: white;
+	border-radius: 5px;
+	margin: 10px auto;
+	padding: 5px;
+	text-align: center;
+	width: 200px;
+}
+
+.element:hover {
+	background-color: rgba(255, 255, 255, 0.5);
+	cursor: pointer;
+}
+
+#h-lists,
+#h-box-lists {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	margin: 0 auto 50px auto;
+	width: 200px;
+}
+
+.h-element,
+.h-box-element {
+	background-color: white;
+	border-radius: 3px;
+	font-size: 15px;
+	padding: 5px;
+	text-align: center;
+	width: 20px;
+}
+
+.h-box-element {
+	border-style: solid;
+	margin: 0 2px;
+}
+
+.h-element:hover,
+.h-box-element:hover {
+	background-color: rgba(255, 255, 255, 0.7);
+	cursor: pointer;
+}
+
+#note-header {
+	color: white;
+	font-size: 15px;
+	margin: 0 30px;
+	text-align: center;
+}
+/* end element list */
+
+/* element edit */
+#element-remove,
+.element-addbox {
+	border-color: white;
+	border-radius: 3px;
+	border-style: solid;
+	color: white;
+	font-size: 13px;
+	margin: 5px auto;
+	padding: 5px 2px;
+	text-align: center;
+	width: 200px;
+}
+
+#element-remove:hover,
+.element-addbox:hover {
+	border-color: black;
+	color: black;
+	cursor: pointer;
+}
+
+#element-header {
+	color: white;
+	display: flex;
+	flex-direction: row;
+	font-size: 15px;
+	justify-content: space-around;
+	margin: 5px 0;
+}
+
+#element-header input {
+	border-radius: 3px;
+	border-style: solid;
+	border-width: 1px;
+	font-size: 15px;
+	height: 15px;
+	padding: 2px;
+	width: calc(20vw - 105px);
+}
+
+#element-style-header {
+	color: white;
+	margin-top: 10px;
+	text-align: center;
+}
+
+#edit-box {
+	height: calc(100vh - 166px);
+	padding: 10px 0;
+	overflow-y: scroll;
+}
+
+.info-edit-add {
+	background-color: white;
+	border-color: black;
+	border-radius: 15px;
+	border-style: solid;
+	border-width: 1px;
+	font-size: 10px;
+	margin: 2px auto;
+	padding: 2px;
+	text-align: center;
+	width: 70px;
+}
+
+.info-edit-add:hover {
+	background-color: rgba(0, 0, 0, 0.2);
+	cursor: pointer;
+}
+
+.info-edit-header,
+.info-edit-header-selectable {
+	color: white;
+	font-size: 10px;
+	margin: 2px 10px;
+	padding: 2px;
+}
+
+.info-edit-header-selectable {
+	width: 125px;
+}
+
+.info-edit-header-selectable:hover {
+	background-color: black;
+	border-radius: 3px;
+	cursor: pointer;
+}
+
+.info-edit-row {
+	display: flex;
+	flex-direction: row;
+}
+
+.info-edit-input-disabled {
+	opacity: 0.5;
+}
+
+.info-edit-input,
+.info-edit-input-disabled {
+	background-color: white;
+	border-radius: 3px;
+	border-style: solid;
+	font-size: 10px;
+	height: 15px;
+	margin: 0 10px 20px 10px;
+	padding: 2px;
+	width: calc(20vw - 75px);
+}
+
+.info-edit-delete {
+	background-color: white;
+	border-radius: 12.5px;
+	display: flex;
+	flex-direction: column;
+	height: 25px;
+	justify-content: space-around;
+	text-align: center;
+	width: 25px;
+}
+
+.info-edit-delete:hover {
+	background-color: rgba(255, 255, 255, 0.5);
+	cursor: pointer;
+}
+
+.info-edit-delete i {
+	color: black;
+}
+/* end element edit */
+/* end sidebar */
+
+/* drawing pad */
+[id^="drawingpad-"] {
+	height: calc(100vh - 65px);
+	width: 80vw;
+}
+
+#drawingpad-empty {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+}
+
+#empty-header {
+	text-align: center;
+}
+
+#drawingpad-filled {
+	overflow: scroll;
+}
+
+#drawingpad-filled *:hover {
+	opacity: 0.9;
+	cursor: pointer;
+}
+/* end drawing pad */
+/* end main */
+
+/* hidden box */
+#hidden-box {
+	background-color: rgba(0, 0, 0, 0.7);
+	display: flex;
+	flex-direction: column;
+	height: 100vh;
+	justify-content: space-around;
+	position: absolute;
+	top: 0;
+	width: 100vw;
+}
+
+#style-add-box,
+#element-add-box,
+#default-property-add-box,
+#color-add-box,
+#length-add-box {
+	background-color: white;
+	border-radius: 5px;
+	border-style: solid;
+	height: 500px;
+	margin: 0 auto;
+	padding: 10px;
+	width: 500px;
+}
+
+#element-options-box {
+	background-color: white;
+	border-radius: 5px;
+	border-style: solid;
+	height: 300px;
+	margin: 0 auto;
+	padding: 10px;
+	width: 500px;
+}
+
+.box-close {
+	border-radius: 17px;
+	border-style: solid;
+	display: flex;
+	flex-direction: column;
+	height: 25px;
+	justify-content: space-around;
+	text-align: center;
+	width: 25px;
+}
+
+#style-add-header,
+#element-add-header,
+#element-options-header,
+#default-property-add-header,
+#default-color-add-header,
+#extra-color-add-header,
+#length-add-header {
+	text-align: center;
+}
+
+#style-list,
+#element-add-list,
+#default-property-add-list,
+#default-color-add-list,
+#extra-color-add-list {
+	height: 430px;
+	margin: 10px auto;
+	overflow-y: scroll;
+	width: 400px;
+}
+
+#default-color-add-list,
+#extra-color-add-list {
+	height: 200px;
+}
+
+#style-list,
+#default-property-add-list {
+	height: 300px;
+}
+
+#numbers-list {
+	margin: 40px 0;
+}
+
+.extra-color-row,
+.numbers-row,
+#numbers-action {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	margin: 0 auto;
+}
+
+.numbers-row {
+	width: 300px;
+}
+
+#numbers-type {
+	margin: 30px auto;
+	width: 150px;
+}
+
+.style-add,
+.element-add,
+.default-property-add,
+.default-color-add,
+.extra-color-add,
+.number-button,
+.number-type-button {
+	border-radius: 3px;
+	border-style: solid;
+	border-width: 2px;
+	margin: 3px 0;
+	padding: 3px;
+	text-align: center;
+}
+
+.extra-color-add {
+	height: 10px;
+	margin: 2px;
+	width: 10px;
+}
+
+.number-type-button {
+	width: 30px;
+}
+
+.number-button {
+	height: 20px;
+	width: 20px;
+}
+
+#numbers-input {
+	text-align: center;
+}
+
+#empty-button,
+#back-button,
+.numbers-button {
+	border-radius: 3px;
+	border-style: solid;
+	margin: 30px auto;
+	padding: 3px;
+	text-align: center;
+	width: 60px;
+}
+
+#empty-button:hover,
+#back-button:hover,
+.numbers-button:hover {
+	background-color: rgba(0, 0, 0, 0.2);
+	cursor: pointer;
+}
+
+#numbers-type {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+.box-close:hover,
+.style-add:hover,
+.element-add:hover,
+.default-property-add:hover,
+.default-color-add:hover,
+.number-button:hover {
+	background-color: rgba(0, 0, 0, 0.5);
+	cursor: pointer;
+}
+
+.extra-color-add:hover,
+.number-type-button:hover {
+	box-shadow: 0px 0px 5px black;
+	cursor: pointer;
+}
+
+/* style add box */
+#style-indicator {
+	text-align: center;
+}
+
+#style-letters {
+	margin: 10px 0;
+}
+
+.style-letter-indicator {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	margin: 0 auto;
+	width: 400px;
+}
+
+.letter-indicator {
+	border-radius: 3px;
+	border-style: solid;
+	border-width: 2px;
+	height: 25px;
+	margin: 2px;
+	text-align: center;
+	width: 25px;
+}
+
+.letter-indicator:hover {
+	background-color: rgba(0, 0, 0, 0.5);
+	cursor: pointer;
+}
+/* end style add box */
+
+/* element options box */
+#element-options-actions {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	margin: 200px auto 0 auto;
+	width: 150px;
+}
+
+.element-options-action {
+	border-radius: 3px;
+	border-style: solid;
+	border-width: 2px;
+	margin: 2px;
+	text-align: center;
+	width: 100px;
+}
+
+.element-options-action:hover {
+	background-color: rgba(0, 0, 0, 0.5);
+	cursor: pointer;
+}
+/* end element options box */
+
+/* length add box */
+#length-actions {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	margin: 0 auto;
+	width: 150px;
+}
+/* end length add box */
+/* end hidden box */
